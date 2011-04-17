@@ -1,3 +1,5 @@
+This program is open source under the terms of GPLv3.
+
 Requirements:
 - pyevix2 http://tilloy.net/dev/pyexiv2/
 - datetime (comes with python 2.7)
