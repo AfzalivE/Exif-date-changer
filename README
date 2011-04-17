@@ -1,0 +1,30 @@
+Requirements:
+- pyevix2 http://tilloy.net/dev/pyexiv2/
+- datetime (comes with python 2.7)
+- re (regexp library, comes with python 2.7)
+- dircache (comes with python 2.7)
+
+I don't know how to compile pyevix2 for Windows 64-bit but you can get it for other platforms (win32, linux32, linux-64...for linux use the ppa provided on their website)
+
+http://tilloy.net/dev/pyexiv2/
+
+This python script changes the following properties of an image file using the pyexiv2 library:
+
+Exif.Image.DateTime
+Exif.Photo.DateTimeOriginal
+Exif.Photo.DateTimeDigitized
+
+The file name has to be in the following format to be processed correctly:
+
+2000 01 31 23 45 55.jpg
+
+where:
+- 2000 is the year
+- 01 is the month
+- 31 is the date
+- 23 is the hour (in 24 hr format of course)
+- 45 is the minute
+- 55 is the second
+
+
+Specify the folder in which the target files are placed (in either Windows or Linux) in the variable called PATH.
