@@ -1,6 +1,7 @@
 This program is open source under the terms of GPLv3.
 
 Requirements:
+- touch command (comes with linux, install Cygwin on Windows)
 - pyevix2 http://tilloy.net/dev/pyexiv2/
 - datetime (comes with python 2.7)
 - re (regexp library, comes with python 2.7)
@@ -12,6 +13,7 @@ http://tilloy.net/dev/pyexiv2/
 
 This python script changes the following properties of an image file using the pyexiv2 library:
 
+File-Modification-Date
 Exif.Image.DateTime
 Exif.Photo.DateTimeOriginal
 Exif.Photo.DateTimeDigitized
