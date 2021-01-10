@@ -1,26 +1,22 @@
+# Exif date changer
+
 This program is open source under the terms of GPLv3.
 
 Requirements:
-- touch command (comes with linux, install Cygwin on Windows)
-- pyevix2 http://tilloy.net/dev/pyexiv2/
-- datetime (comes with python 2.7)
-- re (regexp library, comes with python 2.7)
-- dircache (comes with python 2.7)
+- pyevix2 https://pypi.org/project/pyexiv2/
 
-I don't know how to compile pyevix2 for Windows 64-bit but you can get it for other platforms (win32, linux32, linux-64...for linux use the ppa provided on their website)
+This python script modifies the following properties of an image file using the pyexiv2 library:
 
-http://tilloy.net/dev/pyexiv2/
-
-This python script changes the following properties of an image file using the pyexiv2 library:
-
-File-Modification-Date
 Exif.Image.DateTime
 Exif.Photo.DateTimeOriginal
-Exif.Photo.DateTimeDigitized
 
-The file name has to be in the following format to be processed correctly:
+## Install dependencies
 
-2000 01 31 23 45 55.jpg
+`pip3 install -r requirements.txt`
+
+## Usage
+
+`python3 exif-date-changer.py --folder "/Path/To/Folder" --date "2000:01:31 23:45:55"`
 
 where:
 - 2000 is the year
@@ -29,6 +25,3 @@ where:
 - 23 is the hour (in 24 hr format of course)
 - 45 is the minute
 - 55 is the second
-
-
-Specify the folder in which the target files are placed (in either Windows or Linux) in the variable called PATH.
