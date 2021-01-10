@@ -40,8 +40,8 @@ def change_date(date, folder):
     image.close()
 
 @click.command()
-@click.option('--date', prompt='New date', help='The new date for the EXIF data.')
 @click.option('--folder', prompt='Folder name', help='The folder containing image files.')
+@click.option('--date', prompt='New date', help='The new date for the EXIF data.')
 def start(date, folder):
   try:
     datetime.datetime.strptime(date, '%Y:%m:%d %H:%M:%S')
