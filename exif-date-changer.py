@@ -1,5 +1,5 @@
     # EXIF Date Changer to modify EXIF dates using the filename
-    # Copyright (C) 2011 Afzal Najam.
+    # Copyright (C) 2021 Afzal Najam.
 
     # This program is free software: you can redistribute it and/or modify
     # it under the terms of the GNU General Public License as published by
@@ -12,34 +12,45 @@
     # GNU General Public License for more details.
 
     # You should have received a copy of the GNU General Public License
-    # along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+    # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 import re
-import dircache
+import os
 import datetime
 import pyexiv2
+import click
 
-PATH = '/media/docs/Images/adjusted2/'
-filelst = dircache.listdir(PATH)
-regex = re.compile("\w+")
+folder = ""
 
-for i in range (0, len(filelst)):
-	filename = filelst[i]
-	filename = regex.findall(filename)
-	filename.pop()
-	
-	metadata = pyexiv2.ImageMetadata(PATH + filelst[i])
-	metadata.read()
-	
-	key1 = 'Exif.Image.DateTime'
-	key2 = 'Exif.Photo.DateTimeOriginal'
-	key3 = 'Exif.Photo.DateTimeDigitized'
-	
-	newdate = datetime.datetime(int(filename[0]), int(filename[1]), int(filename[2]), int(filename[3]), int(filename[4]), int(filename[5]))
-	metadata.__setitem__(key1, newdate)
-	metadata.__setitem__(key2, newdate)
-	metadata.__setitem__(key3, newdate)
-	
-	metadata.write()
-	
+def change_date(date, folder):
+  filelst = os.listdir(folder)
+
+  for i in range (0, len(filelst)):
+    if "DS_Store" in filelst[i]:
+      continue
+    fullpath = f'{folder}/{filelst[i]}'
+    print("Processing %s" % fullpath)
+    image = pyexiv2.Image(fullpath)
+    # data = image.read_exif()
+    # print(data)
+    image.modify_exif({'Exif.Image.DateTime': f'{date}'})
+    image.modify_exif({'Exif.Image.DateTimeOriginal': f'{date}'})
+    # image.modify_exif({'Exif.Image.DateTimeDigitized': f'{date}'})
+    image.close()
+
+@click.command()
+@click.option('--date', prompt='New date', help='The new date for the EXIF data.')
+@click.option('--folder', prompt='Folder name', help='The folder containing image files.')
+def start(date, folder):
+  try:
+    datetime.datetime.strptime(date, '%Y:%m:%d %H:%M:%S')
+  except ValueError:
+    print("Incorrect date format, should be YYYY:MM:DD HH:mm:ss")
+    return
+
+  change_date(date, folder)
+
+
+if __name__ == '__main__':
+  start()
